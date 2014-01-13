@@ -7,9 +7,6 @@ assignments<-function(design,save="no",MT,limit,starts=file.choose(new=FALSE)){
       if(save=="yes"){
         file<-file.choose(new=FALSE)
       }
-      if(save=="check"){
-        file<-fileName
-      }
       index<-1:MT
       index.a<-combn(index,MT/2)
       assignments<-matrix("B",quantity,MT)
@@ -29,9 +26,6 @@ assignments<-function(design,save="no",MT,limit,starts=file.choose(new=FALSE)){
     if(MT>22){
       if(save=="yes"){
         file<-file.choose(new=FALSE)
-      }
-      if(save=="check"){
-        file<-fileName
       }
       if(save=="no"){
         file<-tempfile(pattern="CRDassignments",tmpdir=tempdir())
@@ -70,9 +64,6 @@ assignments<-function(design,save="no",MT,limit,starts=file.choose(new=FALSE)){
     if(save=="yes"){
       file<-file.choose(new=FALSE)
     }
-    if(save=="check"){
-      file<-fileName
-    }
     Na<-rep("A",MT/2)
     Nb<-rep("B",MT/2)
     Nab<-rbind(Na,Nb)
@@ -104,9 +95,6 @@ assignments<-function(design,save="no",MT,limit,starts=file.choose(new=FALSE)){
       options(max.print=999999999)
       if(save=="yes"){
         file<-file.choose(new=FALSE)
-      }
-      if(save=="check"){
-        file<-fileName
       }
       index<-1:MT
       index.a<-matrix(combn(index,(MT/2)),ncol=quantityCRD)
@@ -181,9 +169,6 @@ assignments<-function(design,save="no",MT,limit,starts=file.choose(new=FALSE)){
       if(save=="yes"){
         fileATD<-file.choose(new=FALSE)
       }
-      if(save=="check"){
-        fileATD<-fileName
-      }
       if(save=="no"){
         fileATD<-tempfile(pattern="ATDassignments",tmpdir=tempdir())
       }
@@ -253,9 +238,6 @@ assignments<-function(design,save="no",MT,limit,starts=file.choose(new=FALSE)){
     if(save=="yes"){
       file<-file.choose(new=FALSE)
     }
-    if(save=="check"){
-      file<-fileName
-    }
     quantity<-choose(MT-2*limit+1,1)
     assignments<-matrix("A",quantity,MT)
     index.b<-(limit+1):(MT-(limit-1))
@@ -275,9 +257,6 @@ assignments<-function(design,save="no",MT,limit,starts=file.choose(new=FALSE)){
     options(max.print=999999999)
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     quantity<-choose(MT-3*limit+2,2)
     assignments<-matrix("A",quantity,MT)
@@ -310,9 +289,6 @@ assignments<-function(design,save="no",MT,limit,starts=file.choose(new=FALSE)){
     memory.limit(4095)
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     quantity<-choose(MT-4*limit+3,3)
     assignments<-matrix("A",quantity,MT)
@@ -445,9 +421,6 @@ assignments<-function(design,save="no",MT,limit,starts=file.choose(new=FALSE)){
     }
     if(save=="yes"){
       fileASSIGNMENTS<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      fileASSIGNMENTS<-fileName
     }
     if(save=="no"){
       fileASSIGNMENTS<-tempfile(pattern="assignments",tmpdir=tempdir())

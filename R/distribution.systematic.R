@@ -7,9 +7,6 @@ distribution.systematic<-function(design,statistic,save="no",limit,data=read.tab
       if(save=="yes"){
         file<-file.choose(new=FALSE)
       }
-      if(save=="check"){
-        file<-fileName
-      }
       observed<-data[,2]
       scores.a<-combn(observed,MT/2)
       mean.a<-numeric(ncol(scores.a))
@@ -49,9 +46,6 @@ distribution.systematic<-function(design,statistic,save="no",limit,data=read.tab
       file.b<-tempfile(pattern="bscores",tmpdir=tempdir())
       if(save=="yes"){
         file<-file.choose(new=FALSE)
-      }
-      if(save=="check"){
-        file<-fileName
       }
       N<-c(rep("A",MT/2),rep("B",MT/2))
       assignment<-matrix(0,ncol=MT)
@@ -134,9 +128,6 @@ distribution.systematic<-function(design,statistic,save="no",limit,data=read.tab
     if(save=="yes"){
       file<-file.choose(new=FALSE)
     }
-    if(save=="check"){
-      file<-fileName
-    }
     observed1<-rbind(observed.a,observed.b)
     observed2<-rbind(observed.b,observed.a)
     scores.a<-numeric()
@@ -180,9 +171,6 @@ distribution.systematic<-function(design,statistic,save="no",limit,data=read.tab
     if(MT<=20){
       if(save=="yes"){
         file<-file.choose(new=FALSE)
-      }
-      if(save=="check"){
-        file<-fileName
       }
       index<-1:MT
       index.a<-matrix(combn(index,(MT/2)),ncol=quantityCRD)
@@ -279,9 +267,6 @@ distribution.systematic<-function(design,statistic,save="no",limit,data=read.tab
       file.b<-tempfile(pattern="bscores",tmpdir=tempdir())
       if(save=="yes"){
         file<-file.choose(new=FALSE)
-      }
-      if(save=="check"){
-        file<-fileName
       }
       N<-c(rep(0,MT/2),rep(1,MT/2))
       assignment<-matrix(0,ncol=MT)
@@ -390,9 +375,6 @@ distribution.systematic<-function(design,statistic,save="no",limit,data=read.tab
     if(save=="yes"){
       file<-file.choose(new=FALSE)
     }
-    if(save=="check"){
-      file<-fileName
-    }
     index.a<-limit:(MT-limit)
     scores.a<-list()
     for(it in 1:quantity){
@@ -438,9 +420,6 @@ distribution.systematic<-function(design,statistic,save="no",limit,data=read.tab
     quantity<-choose(MT-3*limit+2,2)    
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     index1<-1:(MT-3*limit+1)
     index2<-rev(index1)
@@ -568,9 +547,6 @@ distribution.systematic<-function(design,statistic,save="no",limit,data=read.tab
     quantity<-choose(MT-4*limit+3,3)    
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     index1<-1:(MT-4*limit+1)
     index2<-rev(cumsum(index1))
@@ -888,9 +864,6 @@ distribution.systematic<-function(design,statistic,save="no",limit,data=read.tab
     distribution<-sort(distribution)
     if(save=="yes"){
       fileSAVE<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      fileSAVE<-fileName
     }
     if(save=="yes"|save=="check"){
       write.table(distribution,file=fileSAVE,col.names=FALSE,row.names=FALSE,append=FALSE)

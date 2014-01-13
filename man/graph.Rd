@@ -1,12 +1,12 @@
-\name{graph}
+\name{graph1}
 
-\alias{graph}
+\alias{graph1}
 
 \title{Graphical representation of single-case data}
 
 \description{The observed single-case data are plotted.}
 
-\usage{graph(design, data = read.table(file.choose(new = FALSE)))}
+\usage{graph1(design, data = read.table(file.choose(new = FALSE)))}
 
 \arguments{
 
@@ -39,7 +39,7 @@ Bulte, I., & Onghena, P. (in press). When the Truth Hits You Between the Eyes: A
 
 \examples{
 data(ABAB)
-graph(design = "ABAB", data = ABAB)}
+graph1(design = "ABAB", data = ABAB)}
 
 \keyword{Single-case design}
 \keyword{Graph}

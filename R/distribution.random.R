@@ -6,9 +6,6 @@ obs <- data[,2]
     if(save=="yes"){
       file<-file.choose(new=FALSE)
     }
-    if(save=="check"){
-      file<-fileName
-    }
     file.a<-tempfile(pattern="ascores",tmpdir=tempdir())
     file.b<-tempfile(pattern="bscores",tmpdir=tempdir())
     repeat{
@@ -67,9 +64,6 @@ obs <- data[,2]
   if(design=="RBD"){
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     file.a<-tempfile(pattern="ascores",tmpdir=tempdir())
     file.b<-tempfile(pattern="bscores",tmpdir=tempdir())
@@ -135,9 +129,6 @@ obs <- data[,2]
   if(design=="ATD"){
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     file.a<-tempfile(pattern="ascores",tmpdir=tempdir())
     file.b<-tempfile(pattern="bscores",tmpdir=tempdir())
@@ -219,9 +210,6 @@ obs <- data[,2]
     if(save=="yes"){
       file<-file.choose(new=FALSE)
     }
-    if(save=="check"){
-      file<-fileName
-    }
     observed<-data[,2]
     MT<-nrow(data)
     quantity<-choose(MT-2*limit+1,1)
@@ -268,9 +256,6 @@ obs <- data[,2]
   if(design=="ABA"){
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     observed<-data[,2]
     MT<-nrow(data)
@@ -399,9 +384,6 @@ obs <- data[,2]
   if(design=="ABAB"){
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     observed<-data[,2]
     MT<-nrow(data)
@@ -641,17 +623,14 @@ obs <- data[,2]
     if(save=="yes"){
       fileSAVE<-file.choose(new=FALSE)
     }
-    if(save=="check"){
-      fileSAVE<-fileName
-    }
     if(save=="yes"|save=="check"){
       write.table(distribution,file=fileSAVE,col.names=FALSE,row.names=FALSE,append=FALSE)
       return(distribution)
-      unlink(fileCOMBSTARTPOINTS,recursive=FALSE)
+      unlink(fileCOMBSTARTPTS,recursive=FALSE)
     }
     if(save=="no"){
       return(distribution)
-      unlink(fileCOMBSTARTPOINTS,recursive=FALSE)
+      unlink(fileCOMBSTARTPTS,recursive=FALSE)
     }
   }
 

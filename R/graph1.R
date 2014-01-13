@@ -1,4 +1,4 @@
-graph<-function(design,data=read.table(file.choose(new=FALSE))){
+graph1<-function(design,data=read.table(file.choose(new=FALSE))){
 
   MT<-nrow(data)
   x<-1:MT

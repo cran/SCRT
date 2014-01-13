@@ -6,9 +6,6 @@ obs <- data[,2]
     if(save=="yes"){
       file<-file.choose(new=FALSE)
     }
-    if(save=="check"){
-      file<-fileName
-    }
     file.a<-tempfile(pattern="ascores",tmpdir=tempdir())
     file.b<-tempfile(pattern="bscores",tmpdir=tempdir())
     observed.a<-data[,2][data[,1]=="A"]
@@ -74,9 +71,6 @@ obs <- data[,2]
   if(design=="RBD"){
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     file.a<-tempfile(pattern="ascores",tmpdir=tempdir())
     file.b<-tempfile(pattern="bscores",tmpdir=tempdir())
@@ -149,9 +143,6 @@ obs <- data[,2]
   if(design=="ATD"){
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     file.a<-tempfile(pattern="ascores",tmpdir=tempdir())
     file.b<-tempfile(pattern="bscores",tmpdir=tempdir())
@@ -240,9 +231,6 @@ obs <- data[,2]
     if(save=="yes"){
       file<-file.choose(new=FALSE)
     }
-    if(save=="check"){
-      file<-fileName
-    }
     observed.a<-data[,2][data[,1]=="A"]
     observed.b<-data[,2][data[,1]=="B"]
     observed<-data[,2]
@@ -296,9 +284,6 @@ obs <- data[,2]
   if(design=="ABA"){
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     observed.a1<-data[,2][data[,1]=="A1"]
     observed.b1<-data[,2][data[,1]=="B1"]
@@ -442,9 +427,6 @@ obs <- data[,2]
   if(design=="ABAB"){
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     observed.a1<-data[,2][data[,1]=="A1"]
     observed.b1<-data[,2][data[,1]=="B1"]
@@ -730,17 +712,14 @@ obs <- data[,2]
     if(save=="yes"){
       fileSAVE<-file.choose(new=FALSE)
     }
-    if(save=="check"){
-      fileSAVE<-fileName
-    }
     if(save=="yes"|save=="check"){
       write.table(distribution,file=fileSAVE,col.names=FALSE,row.names=FALSE,append=FALSE)
       return(p.value)
-      unlink(fileCOMBSTARTPOINTS,recursive=FALSE)
+      unlink(fileCOMBSTARTPTS,recursive=FALSE)
     }
     if(save=="no"){
       return(p.value)
-      unlink(fileCOMBSTARTPOINTS,recursive=FALSE)
+      unlink(fileCOMBSTARTPTS,recursive=FALSE)
     }
   }
 

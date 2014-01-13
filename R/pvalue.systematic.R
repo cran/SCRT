@@ -9,9 +9,6 @@ pvalue.systematic<-function(design,statistic,save="no",limit,data=read.table(fil
       if(save=="yes"){
         file<-file.choose(new=FALSE)
       }
-      if(save=="check"){
-        file<-fileName
-      }
       observed<-data[,2]
       scores.a<-combn(observed,MT/2)
       mean.a<-numeric(ncol(scores.a))
@@ -56,9 +53,6 @@ pvalue.systematic<-function(design,statistic,save="no",limit,data=read.table(fil
       file.b<-tempfile(pattern="bscores",tmpdir=tempdir())
       if(save=="yes"){
         file<-file.choose(new=FALSE)
-      }
-      if(save=="check"){
-        file<-fileName
       }
       N<-c(rep("A",MT/2),rep("B",MT/2))
       assignment<-matrix(0,ncol=MT)
@@ -146,9 +140,6 @@ pvalue.systematic<-function(design,statistic,save="no",limit,data=read.table(fil
     if(save=="yes"){
       file<-file.choose(new=FALSE)
     }
-    if(save=="check"){
-      file<-fileName
-    }
     observed1<-rbind(observed.a,observed.b)
     observed2<-rbind(observed.b,observed.a)
     scores.a<-numeric()
@@ -199,9 +190,6 @@ pvalue.systematic<-function(design,statistic,save="no",limit,data=read.table(fil
     if(MT<=20){
       if(save=="yes"){
         file<-file.choose(new=FALSE)
-      }
-      if(save=="check"){
-        file<-fileName
       }
       index<-1:MT
       index.a<-matrix(combn(index,(MT/2)),ncol=quantityCRD)
@@ -303,9 +291,6 @@ pvalue.systematic<-function(design,statistic,save="no",limit,data=read.table(fil
       file.b<-tempfile(pattern="bscores",tmpdir=tempdir())
       if(save=="yes"){
         file<-file.choose(new=FALSE)
-      }
-      if(save=="check"){
-        file<-fileName
       }
       N<-c(rep(0,MT/2),rep(1,MT/2))
       assignment<-matrix(0,ncol=MT)
@@ -421,9 +406,6 @@ pvalue.systematic<-function(design,statistic,save="no",limit,data=read.table(fil
     if(save=="yes"){
       file<-file.choose(new=FALSE)
     }
-    if(save=="check"){
-      file<-fileName
-    }
     index.a<-limit:(MT-limit)
     scores.a<-list()
     for(it in 1:quantity){
@@ -478,9 +460,6 @@ pvalue.systematic<-function(design,statistic,save="no",limit,data=read.table(fil
     quantity<-choose(MT-3*limit+2,2)    
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     index1<-1:(MT-3*limit+1)
     index2<-rev(index1)
@@ -625,9 +604,6 @@ pvalue.systematic<-function(design,statistic,save="no",limit,data=read.table(fil
     quantity<-choose(MT-4*limit+3,3)    
     if(save=="yes"){
       file<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      file<-fileName
     }
     index1<-1:(MT-4*limit+1)
     index2<-rev(cumsum(index1))
@@ -985,9 +961,6 @@ pvalue.systematic<-function(design,statistic,save="no",limit,data=read.table(fil
     p.value<-sum(test)/nrow(assignments)
     if(save=="yes"){
       fileSAVE<-file.choose(new=FALSE)
-    }
-    if(save=="check"){
-      fileSAVE<-fileName
     }
     if(save=="yes"|save=="check"){
       write.table(distribution,file=fileSAVE,col.names=FALSE,row.names=FALSE,append=FALSE)
