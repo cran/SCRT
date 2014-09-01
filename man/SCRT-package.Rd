@@ -20,7 +20,7 @@ License: \tab GPL version 2 or newer\cr
 \author{
 Isis Bulte and Patrick Onghena
 
-Maintainer: Marlies Vervloet <marlies.vervloet@ppw.kuleuven.be>
+Maintainer: Bart Michiels <bart.michiels@ppw.kuleuven.be>
 }
 
 \keyword{ package }
