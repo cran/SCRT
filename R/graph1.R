@@ -1,10 +1,10 @@
-graph1<-function(design,data=read.table(file.choose(new=FALSE))){
+graph1<-function(design,data=read.table(file.choose(new=FALSE)),xlab="Measurement Times",ylab="Scores"){
 
   MT<-nrow(data)
   x<-1:MT
   
   if(design=="CRD"|design=="RBD"|design=="ATD"){
-    plot(x,data[,2],type="n",xlab="Measurement Times",ylab="Scores")
+    plot(x,data[,2],type="n",xlab=xlab,ylab=ylab)
     points(x[data[,1]=="A"],data[,2][data[,1]=="A"],pch=1)
     points(x[data[,1]=="B"],data[,2][data[,1]=="B"],pch=16)
     a<-data[,2][data[,1]=="A"]
@@ -21,7 +21,7 @@ graph1<-function(design,data=read.table(file.choose(new=FALSE))){
   }
   
   if(design=="AB"){
-    plot(x,data[,2],xlab="Measurement Times",ylab="Scores",pch=16)
+    plot(x,data[,2],xlab=xlab,ylab=ylab,pch=16)
     lines(x[data[,1]=="A"],data[,2][data[,1]=="A"])
     lines(x[data[,1]=="B"],data[,2][data[,1]=="B"])
     lines(c(sum(data[,1]=="A")+0.5,sum(data[,1]=="A")+0.5),c(min(data[,2])-5,max(data[,2])+5),lty=2)
@@ -31,7 +31,7 @@ graph1<-function(design,data=read.table(file.choose(new=FALSE))){
   
   
   if(design=="ABA"){
-    plot(x,data[,2],xlab="Measurement Times",ylab="Scores",pch=16)
+    plot(x,data[,2],xlab=xlab,ylab=ylab,pch=16)
     lines(x[data[,1]=="A1"],data[,2][data[,1]=="A1"])
     lines(x[data[,1]=="B1"],data[,2][data[,1]=="B1"])
     lines(x[data[,1]=="A2"],data[,2][data[,1]=="A2"])
@@ -43,7 +43,7 @@ graph1<-function(design,data=read.table(file.choose(new=FALSE))){
   }
   
   if(design=="ABAB"){
-    plot(x,data[,2],xlab="Measurement Times",ylab="Scores",pch=16)
+    plot(x,data[,2],xlab=xlab,ylab=ylab,pch=16)
     lines(x[data[,1]=="A1"],data[,2][data[,1]=="A1"])
     lines(x[data[,1]=="B1"],data[,2][data[,1]=="B1"])
     lines(x[data[,1]=="A2"],data[,2][data[,1]=="A2"])
@@ -61,14 +61,14 @@ graph1<-function(design,data=read.table(file.choose(new=FALSE))){
     N<-ncol(data)/2
     par(mfrow=c(N,1))
     for(it in 1:N){
-      plot(x,data[,it*2],xlab="",ylab="Scores",pch=16)
+      plot(x,data[,it*2],xlab="",ylab=ylab,pch=16)
       lines(x[data[,(it*2)-1]=="A"],data[,it*2][data[,(it*2)-1]=="A"])
       lines(x[data[,(it*2)-1]=="B"],data[,it*2][data[,(it*2)-1]=="B"])
       lines(c(sum(data[,(it*2)-1]=="A")+0.5,sum(data[,(it*2)-1]=="A")+0.5),c(min(data[,it*2])-5,max(data[,it*2])+5),lty=2)
       mtext("A",side=3,at=(sum(data[,(it*2)-1]=="A")+1)/2)
       mtext("B",side=3,at=(sum(data[,(it*2)-1]=="A")+(sum(data[,(it*2)-1]=="B")+1)/2))
     }
-    title(xlab="Measurement Times",pch=16)
+    title(xlab=xlab,pch=16)
     
     par(mfrow=c(1,1))
   }

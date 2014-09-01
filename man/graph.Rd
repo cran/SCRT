@@ -6,13 +6,18 @@
 
 \description{The observed single-case data are plotted.}
 
-\usage{graph1(design, data = read.table(file.choose(new = FALSE)))}
+\usage{graph1(design,data=read.table(file.choose(new=FALSE)),
+xlab="Measurement Times",ylab="Scores")}
 
 \arguments{
 
   \item{design}{Type of single-case design: \code{"AB"}, \code{"ABA"}, \code{"ABAB"}, \code{"CRD"} (completely randomized design), \code{"RBD"} (randomized block design), \code{"ATD"} (alternating treatments design), or \code{"MBD"} (multiple-baseline AB design).}
 
   \item{data}{File in which the data can be found. Default: a window pops up in which the file can be selected.} 
+  
+  \item{xlab}{Label x axis}
+  
+  \item{ylab}{Label y axis}
 
 }
 

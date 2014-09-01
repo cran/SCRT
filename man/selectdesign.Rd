@@ -6,7 +6,7 @@
 
 \description{One assignment possibility is randomly selected from all theoretical possibilities.}
 
-\usage{selectdesign(design, MT, limit, starts = file.choose(new = FALSE))}
+\usage{selectdesign(design, MT, limit, starts = read.table(file.choose(new=FALSE)))}
 
 \arguments{
 
