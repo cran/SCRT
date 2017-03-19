@@ -1,9 +1,10 @@
-graph1<-function(design,data=read.table(file.choose(new=FALSE)),xlab="Measurement Times",ylab="Scores"){
+graph1 <-
+function(design,data=read.table(file.choose(new=FALSE)),xlab="Measurement Times",ylab="Scores"){
 
   MT<-nrow(data)
   x<-1:MT
   
-  if(design=="CRD"|design=="RBD"|design=="ATD"){
+  if(design=="CRD"|design=="RBD"|design=="ATD"|design=="Custom"){
     plot(x,data[,2],type="n",xlab=xlab,ylab=ylab)
     points(x[data[,1]=="A"],data[,2][data[,1]=="A"],pch=1)
     points(x[data[,1]=="B"],data[,2][data[,1]=="B"],pch=16)

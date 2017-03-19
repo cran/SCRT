@@ -1,4 +1,13 @@
-pvalue.systematic<-function(design,statistic,save="no",limit,data=read.table(file.choose(new=FALSE)),starts=file.choose(new=FALSE)){
+pvalue.systematic <-
+function(
+  design,
+  statistic,
+  save="no",
+  limit,
+  data=read.table(file.choose(new=FALSE)),
+  starts=file.choose(new=FALSE),
+  assignments=file.choose(new=FALSE)
+){
 
   if(design=="CRD"){
     observed.a<-data[,2][data[,1]=="A"]
@@ -975,6 +984,55 @@ pvalue.systematic<-function(design,statistic,save="no",limit,data=read.table(fil
       unlink(fileCOMBSTARTPOINTS,recursive=FALSE)
       unlink(fileASSIGNMENTS,recursive=FALSE)
     }
+  }
+  
+  if(design=="Custom"){
+    if(!(statistic=="A-B"||statistic=="B-A"||statistic=="|A-B|"))
+      stop("Chosen test statistic not allowed for this design.")
+    
+    if(save=="yes"){
+      file<-file.choose(new=FALSE)
+    }
+    
+    observed<-data[,2]
+    observed.a<-data[,2][data[,1]=="A"]
+    observed.b<-data[,2][data[,1]=="B"]
+    assignments<-read.table(assignments)
+    quantity<-nrow(assignments)
+    
+    scores.a<-list()
+    for(it in 1:quantity)
+      scores.a[[it]]<-c(observed[assignments[it,]=="A"])
+    
+    scores.b<-list()
+    for(it in 1:quantity)
+      scores.b[[it]]<-c(observed[assignments[it,]=="B"])
+    
+    distribution<-numeric(quantity)
+    if(statistic=="A-B"){
+      for(it in 1:quantity)
+        distribution[it]<-mean(scores.a[[it]])-mean(scores.b[[it]])
+      observed.statistic<-mean(observed.a)-mean(observed.b)
+    }
+    if(statistic=="B-A"){
+      for(it in 1:quantity)
+        distribution[it]<-mean(scores.b[[it]])-mean(scores.a[[it]])
+      observed.statistic<-mean(observed.b)-mean(observed.a)
+    }
+    if(statistic=="|A-B|"){
+      for(it in 1:quantity)
+        distribution[it]<-abs(mean(scores.a[[it]])-mean(scores.b[[it]]))
+      observed.statistic<-abs(mean(observed.a)-mean(observed.b))
+    }
+    
+    distribution<-sort(distribution)
+    test<-distribution>=observed.statistic
+    p.value<-sum(test)/quantity
+    
+    if(save=="yes")
+      write.table(distribution,file=file,col.names=FALSE,row.names=FALSE,append=FALSE)
+    
+    return(p.value)
   }
 
 }

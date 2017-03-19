@@ -8,10 +8,10 @@
 
 \usage{pvalue.random(design, statistic, save = "no", 
 number, limit, data = read.table(file.choose(new = FALSE)), 
-starts = file.choose(new = FALSE))}
+starts = file.choose(new = FALSE), assignments = file.choose(new = FALSE))}
 
 \arguments{
-  \item{design}{Type of single-case design: \code{"AB"}, \code{"ABA"}, \code{"ABAB"}, \code{"CRD"} (completely randomized design), \code{"RBD"} (randomized block design), \code{"ATD"} (alternating treatments design), or \code{"MBD"} (multiple-baseline AB design).}
+  \item{design}{Type of single-case design: \code{"AB"}, \code{"ABA"}, \code{"ABAB"}, \code{"CRD"} (completely randomized design), \code{"RBD"} (randomized block design), \code{"ATD"} (alternating treatments design), \code{"MBD"} (multiple-baseline AB design) or \code{"Custom"} (user specified design).}
 
   \item{statistic}{Test statistic. For alternation designs, multiple-baseline designs and AB phase designs, there are 3 built-in possibilities: \code{"A-B"}, \code{"B-A"}, and \code{"|A-B|"}, which stand for the (absolute value of the) difference between condition means. 
 For phase designs with more than 2 phases, 6 more options are available: \code{"PA-PB"}, \code{"PB-PA"}, and \code{"|PA-PB|"} refer to the (absolute value of the) difference between the means of phase means, and \code{"AA-BB"}, \code{"BB-AA"} and \code{"|AA-BB|"} represent the (absolute value of the) difference between the sums of phase means.}
@@ -26,6 +26,8 @@ For alternating treatments designs: maximum number of consecutive administration
   \item{data}{File in which the data can be found. Default: a window pops up in which the file can be selected.}
 
   \item{starts}{Only for multiple baseline designs: location of the file where the possible start points can be found. Default: a window pops up in which the file can be selected.}
+  
+  \item{assignments}{Only for user specified designs: location of the file where all the possible assignments can be found. Default: a window pops up in which the file can be selected.}
 
 }
 
@@ -36,7 +38,9 @@ For multiple-baseline designs it should consist of these two columns for EACH un
 
 For multiple baseline designs, when using the default \code{starts} argument, second a window pops up in which is asked in what file the possible start points can be found. In this startpoint file, each row should contain all possibilities for one unit, separated by a tab. The rows and columns should not be labeled.
 
-When choosing to save the randomization distribution to a file, next a window will pop up (for multiple baseline designs this is the third pop-up window, for all other designs it is the second window) to ask where to save it. This location can be an existing file, as well as a new file that can be created by giving a file name and the extension .txt. In this latter case a confirmation is required ("The file does not exist yet. Create the file?"). 
+For user specified designs, when using the default \code{assignments} argument, second a window pops up in which is asked in what file all the possible assignments can be found. In this file, each row should contain the sequence of conditions in one possible assignment, separated by a tab. There should be one row for every possible assignment. The rows and columns should not be labeled.
+
+When choosing to save the randomization distribution to a file, next a window will pop up (for multiple baseline designs or user specified designs this is the third pop-up window, for all other designs it is the second window) to ask where to save it. This location can be an existing file, as well as a new file that can be created by giving a file name and the extension .txt. In this latter case a confirmation is required ("The file does not exist yet. Create the file?"). 
 
 }
 

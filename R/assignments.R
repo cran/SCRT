@@ -1,4 +1,5 @@
-assignments<-function(design,save="no",MT,limit,starts=file.choose(new=FALSE)){
+assignments <-
+function(design,save="no",MT,limit,starts=file.choose(new=FALSE),assignments=file.choose(new=FALSE)){
 
   if(design=="CRD"){
     quantity<-choose(MT,MT/2)
@@ -457,6 +458,16 @@ assignments<-function(design,save="no",MT,limit,starts=file.choose(new=FALSE)){
       unlink(fileCOMBSTARTPOINTS,recursive=FALSE)
       unlink(fileASSIGNMENTS,recursive=FALSE)
     }
+  }
+  
+  if(design=="Custom"){
+    options(max.print=999999999)
+    assignments<-read.table(assignments)
+    if(save=="yes"){
+      file<-file.choose(new=FALSE)
+      write.table(assignments,file=file,col.names=FALSE,row.names=FALSE,append=FALSE)
+    }
+    return(assignments)
   }
 
 }

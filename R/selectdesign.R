@@ -1,4 +1,5 @@
-selectdesign = function (design, MT, limit, starts=read.table(file.choose(new=FALSE))) 
+selectdesign <-
+function (design, MT, limit, starts = file.choose(new = FALSE), assignments = file.choose(new = FALSE)) 
 {
   if (design == "CRD") {
     N <- c(rep("A", MT/2), rep("B", MT/2))
@@ -98,12 +99,15 @@ selectdesign = function (design, MT, limit, starts=read.table(file.choose(new=FA
     return(design)
   }
   if (design == "MBD") {
-    points <- starts
+    points <- read.table(starts)
     N <- nrow(points)
-    startpoints <- starts
+    readLines(con = starts, n = N) -> startpoints
     limits <- list()
     for (it in 1:N) {
-      limits[[it]] <- startpoints[it,]
+      limits[[it]] <- startpoints[it]
+    }
+    for (it in 1:N) {	
+      limits[[it]] <- strsplit(limits[[it]], "\t")
     }
     number <- numeric(N)
     for (it in 1:N) {
@@ -119,6 +123,12 @@ selectdesign = function (design, MT, limit, starts=read.table(file.choose(new=FA
       }
     }
     design <- sample(startpt, replace = FALSE)
+    return(design)
+  }
+  if (design == "Custom") {
+    assignments <- read.table(assignments)
+    index <- sample.int(nrow(assignments), 1)
+    design <- assignments[index,]
     return(design)
   }
 }

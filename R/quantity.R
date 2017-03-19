@@ -1,4 +1,5 @@
-quantity<-function(design,MT,limit,starts=file.choose(new=FALSE)){
+quantity <-
+function(design,MT,limit,starts=file.choose(new=FALSE),assignments=file.choose(new=FALSE)){
 
   if(design=="AB"|design=="ABA"|design=="ABAB"){
     phase<-length(strsplit(design,c(""))[[1]])
@@ -125,6 +126,10 @@ quantity<-function(design,MT,limit,starts=file.choose(new=FALSE)){
       number[it]<-length(limits[[it]][[1]])
     }
     quantity<-factorial(N)*prod(number)
+  }
+  
+  if(design=="Custom"){
+    quantity<-nrow(read.table(assignments))
   }
   
   return(quantity)

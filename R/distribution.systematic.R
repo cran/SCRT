@@ -1,4 +1,13 @@
-distribution.systematic<-function(design,statistic,save="no",limit,data=read.table(file.choose(new=FALSE)),starts=file.choose(new=FALSE)){
+distribution.systematic <-
+function(
+  design,
+  statistic,
+  save="no",
+  limit,
+  data=read.table(file.choose(new=FALSE)),
+  starts=file.choose(new=FALSE),
+  assignments=file.choose(new=FALSE)
+){
 
  if(design=="CRD"){
     MT<-nrow(data)
@@ -878,6 +887,47 @@ distribution.systematic<-function(design,statistic,save="no",limit,data=read.tab
       unlink(fileCOMBSTARTPOINTS,recursive=FALSE)
       unlink(fileASSIGNMENTS,recursive=FALSE)
     }
+  }
+  
+  if(design=="Custom"){
+    if(!(statistic=="A-B"||statistic=="B-A"||statistic=="|A-B|"))
+      stop("Chosen test statistic not allowed for this design.")
+    
+    if(save=="yes"){
+      file<-file.choose(new=FALSE)
+    }
+    
+    observed<-data[,2]
+    assignments<-read.table(assignments)
+    quantity<-nrow(assignments)
+    
+    scores.a<-list()
+    for(it in 1:quantity)
+      scores.a[[it]]<-c(observed[assignments[it,]=="A"])
+    
+    scores.b<-list()
+    for(it in 1:quantity)
+      scores.b[[it]]<-c(observed[assignments[it,]=="B"])
+    
+    distribution<-numeric(quantity)
+    if(statistic=="A-B"){
+      for(it in 1:quantity)
+        distribution[it]<-mean(scores.a[[it]])-mean(scores.b[[it]])
+    }
+    if(statistic=="B-A"){
+      for(it in 1:quantity)
+        distribution[it]<-mean(scores.b[[it]])-mean(scores.a[[it]])
+    }
+    if(statistic=="|A-B|"){
+      for(it in 1:quantity)
+        distribution[it]<-abs(mean(scores.a[[it]])-mean(scores.b[[it]]))
+    }
+    
+    distribution<-sort(distribution)
+    if(save=="yes")
+      write.table(distribution,file=file,col.names=FALSE,row.names=FALSE,append=FALSE)
+    
+    return(distribution)
   }
 
 }

@@ -5,13 +5,13 @@
 Single-Case Randomization Tests
 }
 \description{
-A package for designing single-case phase, alternation and multiple-baseline experiments, as well as for conducting randomization tests on data gathered by means of such designs. 
+Design single-case phase, alternation and multiple-baseline experiments, and conduct randomization tests on data gathered by means of such designs.
 }
 \details{
 \tabular{ll}{
 Package: \tab SCRT\cr
 Type: \tab Package\cr
-Version: \tab 1.0\cr
+Version: \tab 1.2\cr
 Date: \tab 2014-01-13\cr
 License: \tab GPL version 2 or newer\cr
 }
@@ -20,7 +20,7 @@ License: \tab GPL version 2 or newer\cr
 \author{
 Isis Bulte and Patrick Onghena
 
-Maintainer: Bart Michiels <bart.michiels@ppw.kuleuven.be>
+Maintainer: Tamal Kumar De <tamalkumar.de@kuleuven.be>
 }
 
 \keyword{ package }

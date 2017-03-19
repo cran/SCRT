@@ -1,1 +1,13 @@
-exportPattern("^[[:alpha:]]+")
+importFrom("graphics", "legend", "lines", "locator", "mtext", "par", "plot", "points", "title")
+importFrom("utils", "combn", "memory.limit", "read.table", "write.table")
+export(
+  quantity, 
+  assignments, 
+  selectdesign, 
+  graph1, 
+  observed, 
+  distribution.systematic, 
+  distribution.random,
+  pvalue.systematic, 
+  pvalue.random
+)

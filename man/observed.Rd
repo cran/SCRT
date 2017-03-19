@@ -9,7 +9,7 @@
 \usage{observed(design, statistic, data = read.table(file.choose(new = FALSE)))}
 
 \arguments{
-  \item{design}{Type of single-case design: \code{"AB"}, \code{"ABA"}, \code{"ABAB"}, \code{"CRD"} (completely randomized design), \code{"RBD"} (randomized block design), \code{"ATD"} (alternating treatments design), or \code{"MBD"} (multiple-baseline AB design).}
+  \item{design}{Type of single-case design: \code{"AB"}, \code{"ABA"}, \code{"ABAB"}, \code{"CRD"} (completely randomized design), \code{"RBD"} (randomized block design), \code{"ATD"} (alternating treatments design), \code{"MBD"} (multiple-baseline AB design) or \code{"Custom"} (user specified design).}
 
   \item{statistic}{Test statistic. For alternation designs, multiple-baseline designs and AB phase designs, there are 3 built-in possibilities: \code{"A-B"}, \code{"B-A"}, and \code{"|A-B|"}, which stand for the (absolute value of the) difference between condition means. 
 For phase designs with more than 2 phases, 6 more options are available: \code{"PA-PB"}, \code{"PB-PA"}, and \code{"|PA-PB|"} refer to the (absolute value of the) difference between the means of phase means, and \code{"AA-BB"}, \code{"BB-AA"} and \code{"|AA-BB|"} represent the (absolute value of the) difference between the sums of phase means.}

@@ -1,6 +1,7 @@
-observed<-function(design,statistic,data=read.table(file.choose(new=FALSE))){
+observed <-
+function(design,statistic,data=read.table(file.choose(new=FALSE))){
 
-  if(design=="CRD"|design=="RBD"|design=="ATD"|design=="AB"){
+  if(design=="CRD"|design=="RBD"|design=="ATD"|design=="AB"|design=="Custom"){
     observed.a<-data[,2][data[,1]=="A"]
     observed.b<-data[,2][data[,1]=="B"]
     if(statistic=="A-B"){
