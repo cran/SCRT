@@ -12,38 +12,48 @@ function(
  if(design=="CRD"){
     MT<-nrow(data)
     quantity<-choose(MT,MT/2)
+    
     if(MT<=22){
       if(save=="yes"){
         file<-file.choose(new=FALSE)
       }
       observed<-data[,2]
       scores.a<-combn(observed,MT/2)
-      mean.a<-numeric(ncol(scores.a))
-      for(it in 1:ncol(scores.a)){
-        mean.a[it]<-mean(scores.a[,it])
-      }
-      mean.b<-rev(mean.a)
-      if(statistic=="A-B"){
-        distribution<-numeric(length(mean.a))
-        for(it in 1:length(mean.a)){
-          distribution[it]<-mean.a[it]-mean.b[it]
+      distribution<-numeric(quantity)
+      
+      if(statistic %in% c("A-B","B-A","|A-B|")){
+        mean.a<-numeric(ncol(scores.a))
+        for(it in 1:ncol(scores.a)){
+          mean.a[it]<-mean(scores.a[,it])
         }
-        distribution<-sort(distribution)
-      }
-      if(statistic=="B-A"){
-        distribution<-numeric(length(mean.a))
-        for(it in 1:length(mean.a)){
-          distribution[it]<-mean.b[it]-mean.a[it]
+        mean.b<-rev(mean.a)
+        if(statistic=="A-B"){
+          for(it in 1:length(mean.a)){
+            distribution[it]<-mean.a[it]-mean.b[it]
+          }
         }
-        distribution<-sort(distribution)
-      }
-      if(statistic=="|A-B|"){
-        distribution<-numeric(length(mean.a))
-        for(it in 1:length(mean.a)){
-          distribution[it]<-abs(mean.a[it]-mean.b[it])
+        else if(statistic=="B-A"){
+          for(it in 1:length(mean.a)){
+            distribution[it]<-mean.b[it]-mean.a[it]
+          }
         }
-        distribution<-sort(distribution)
+        else if(statistic=="|A-B|"){
+          for(it in 1:length(mean.a)){
+            distribution[it]<-abs(mean.a[it]-mean.b[it])
+          }
+        }
       }
+      else{
+        scores.b<-rev(scores.a)
+        dim(scores.b)<-c(MT/2,quantity)
+        for(it in 1:quantity){
+          A<-scores.a[,it]
+          B<-scores.b[,it]
+          distribution[it]<-eval(parse(text=statistic))
+        }
+      }
+      
+      distribution<-sort(distribution)
       if(save=="yes"|save=="check"){
         write.table(distribution,file=file,col.names=FALSE,row.names=FALSE)
       }
@@ -98,27 +108,32 @@ function(
       }
       scores.a<-as.matrix(scores.a)
       scores.b<-as.matrix(scores.b)
+      distribution<-numeric(quantity)
+      
       if(statistic=="A-B"){
-        distribution<-numeric(quantity)
         for(it in 1:quantity){
           distribution[it]<-mean(scores.a[it,])-mean(scores.b[it,])
         }
-        distribution<-sort(distribution)
       }
-      if(statistic=="B-A"){
-        distribution<-numeric(quantity)
+      else if(statistic=="B-A"){
         for(it in 1:quantity){
           distribution[it]<-mean(scores.b[it,])-mean(scores.a[it,])
         }
-        distribution<-sort(distribution)
       }
-      if(statistic=="|A-B|"){
-        distribution<-numeric(quantity)
+      else if(statistic=="|A-B|"){
         for(it in 1:quantity){
           distribution[it]<-abs(mean(scores.a[it,])-mean(scores.b[it,]))
         }
-        distribution<-sort(distribution)
       }
+      else{
+        for(it in 1:quantity){
+          A<-scores.a[it,]
+          B<-scores.b[it,]
+          distribution[it]<-eval(parse(text=statistic))
+        }
+      }
+      
+      distribution<-sort(distribution)
       unlink(fileCRD,recursive=FALSE)
       unlink(file.a,recursive=FALSE)
       unlink(file.b,recursive=FALSE)
@@ -147,27 +162,32 @@ function(
     for(it in 1:(MT/2)){
       scores.b<-cbind(scores.b,cbind(rep(cbind(rep(observed2[,it],rep(2^it/2,2))),2^(MT/2)/2^it)))
     }
+    distribution<-numeric(quantity)
+    
     if(statistic=="A-B"){
-      distribution<-numeric(quantity)
       for(it in 1:quantity){
         distribution[it]<-mean(scores.a[it,])-mean(scores.b[it,])
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="B-A"){
-      distribution<-numeric(quantity)
+    else if(statistic=="B-A"){
       for(it in 1:quantity){
         distribution[it]<-mean(scores.b[it,])-mean(scores.a[it,])
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="|A-B|"){
-      distribution<-numeric(quantity)
+    else if(statistic=="|A-B|"){
       for(it in 1:quantity){
         distribution[it]<-abs(mean(scores.a[it,])-mean(scores.b[it,]))
       }
-      distribution<-sort(distribution)
     }
+    else{
+      for(it in 1:quantity){
+        A<-scores.a[it,]
+        B<-scores.b[it,]
+        distribution[it]<-eval(parse(text=statistic))
+      }
+    }
+    
+    distribution<-sort(distribution)
     if(save=="yes"|save=="check"){
       write.table(distribution,file=file,col.names=FALSE,row.names=FALSE)
     }
@@ -244,27 +264,32 @@ function(
         scores.b<-cbind(scores.b,data[,2][indexes.b[,it]])
       }
       quantity<-nrow(scores.a)
+      distribution<-numeric(quantity)
+      
       if(statistic=="A-B"){
-        distribution<-numeric(nrow(scores.a))
-        for(it in 1:nrow(scores.a)){
+        for(it in 1:quantity){
           distribution[it]<-mean(scores.a[it,])-mean(scores.b[it,])
         }
-        distribution<-sort(distribution)
       }
-      if(statistic=="B-A"){
-        distribution<-numeric(nrow(scores.a))
-        for(it in 1:nrow(scores.a)){
+      else if(statistic=="B-A"){
+        for(it in 1:quantity){
           distribution[it]<-mean(scores.b[it,])-mean(scores.a[it,])
         }
-        distribution<-sort(distribution)
       }
-      if(statistic=="|A-B|"){
-        distribution<-numeric(nrow(scores.a))
-        for(it in 1:nrow(scores.a)){
+      else if(statistic=="|A-B|"){
+        for(it in 1:quantity){
           distribution[it]<-abs(mean(scores.a[it,])-mean(scores.b[it,]))
         }
-        distribution<-sort(distribution)
       }
+      else{
+        for(it in 1:quantity){
+          A<-scores.a[it,]
+          B<-scores.b[it,]
+          distribution[it]<-eval(parse(text=statistic))
+        }
+      }
+      
+      distribution<-sort(distribution)
       if(save=="yes"|save=="check"){
         write.table(distribution,file=file,row.names=FALSE,col.names=FALSE)
       }
@@ -346,27 +371,32 @@ function(
       scores.a<-as.matrix(scores.a)
       scores.b<-as.matrix(scores.b)
       quantity<-nrow(scores.a)
+      distribution<-numeric(quantity)
+      
       if(statistic=="A-B"){
-        distribution<-numeric(nrow(scores.a))
-        for(it in 1:nrow(scores.a)){
+        for(it in 1:quantity){
           distribution[it]<-mean(scores.a[it,])-mean(scores.b[it,])
         }
-        distribution<-sort(distribution)
       }
-      if(statistic=="B-A"){
-        distribution<-numeric(nrow(scores.a))
-        for(it in 1:nrow(scores.a)){
+      else if(statistic=="B-A"){
+        for(it in 1:quantity){
           distribution[it]<-mean(scores.b[it,])-mean(scores.a[it,])
         }
-        distribution<-sort(distribution)
       }
-      if(statistic=="|A-B|"){
-        distribution<-numeric(nrow(scores.a))
-        for(it in 1:nrow(scores.a)){
+      else if(statistic=="|A-B|"){
+        for(it in 1:quantity){
           distribution[it]<-abs(mean(scores.a[it,])-mean(scores.b[it,]))
         }
-        distribution<-sort(distribution)
       }
+      else{
+        for(it in 1:quantity){
+          A<-scores.a[it,]
+          B<-scores.b[it,]
+          distribution[it]<-eval(parse(text=statistic))
+        }
+      }
+      
+      distribution<-sort(distribution)
       unlink(fileCRD,recursive=FALSE)
       unlink(file.a,recursive=FALSE)
       unlink(file.b,recursive=FALSE)
@@ -393,34 +423,36 @@ function(
     for(it in 1:quantity){
       scores.b[[it]]<-c(observed[(index.a[it]+1):MT])
     }
+    distribution<-numeric(quantity)
+    
     if(statistic=="A-B"){
-      distribution<-numeric(quantity)
       for(it in 1:quantity){
         distribution[it]<-mean(scores.a[[it]])-mean(scores.b[[it]])
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="B-A"){
-      distribution<-numeric(quantity)
+    else if(statistic=="B-A"){
       for(it in 1:quantity){
         distribution[it]<-mean(scores.b[[it]])-mean(scores.a[[it]])
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="|A-B|"){
-      distribution<-numeric(quantity)
+    else if(statistic=="|A-B|"){
       for(it in 1:quantity){
         distribution[it]<-abs(mean(scores.a[[it]])-mean(scores.b[[it]]))
       }
-      distribution<-sort(distribution)
     }
+    else{
+      for(it in 1:quantity){
+        A<-scores.a[[it]]
+        B<-scores.b[[it]]
+        distribution[it]<-eval(parse(text=statistic))
+      }
+    }
+    
+    distribution<-sort(distribution)
     if(save=="yes"|save=="check"){
       write.table(distribution,file=file,col.names=FALSE,row.names=FALSE,append=FALSE)
-      return(distribution)
     }
-    if(save=="no"){
-      return(distribution)
-    }
+    return(distribution)
   }
   
   if(design=="ABA"){
@@ -478,76 +510,69 @@ function(
     for(it in 1:quantity){
       mean.a2[it]<-mean(scores.a2[[it]])
     }
+    distribution<-numeric(quantity)
+    
     if(statistic=="A-B"){	
-      distribution<-numeric(quantity)
       for(it in 1:quantity){
         distribution[it]<-mean.a[it]-mean.b[it]
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="B-A"){
-      distribution<-numeric(quantity)
+    else if(statistic=="B-A"){
       for(it in 1:quantity){
         distribution[it]<-mean.b[it]-mean.a[it]
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="|A-B|"){
-      distribution<-numeric(quantity)
+    else if(statistic=="|A-B|"){
       for(it in 1:quantity){
         distribution[it]<-abs(mean.a[it]-mean.b[it])
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="PA-PB"){
-      distribution<-numeric(quantity)
+    else if(statistic=="PA-PB"){
       for(it in 1:quantity){
         distribution[it]<-pmean.a[it]-mean.b[it]
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="PB-PA"){
-      distribution<-numeric(quantity)
+    else if(statistic=="PB-PA"){
       for(it in 1:quantity){
         distribution[it]<-mean.b[it]-pmean.a[it]
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="|PA-PB|"){
-      distribution<-numeric(quantity)
+    else if(statistic=="|PA-PB|"){
       for(it in 1:quantity){
         distribution[it]<-abs(pmean.a[it]-mean.b[it])
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="AA-BB"){
-      distribution<-numeric(quantity)
+    else if(statistic=="AA-BB"){
       for(it in 1:quantity){
         distribution[it]<-(mean.a1[it]+mean.a2[it])-(mean.b[it])
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="BB-AA"){
-      distribution<-numeric(quantity)
+    else if(statistic=="BB-AA"){
       for(it in 1:quantity){
         distribution[it]<-mean.b[it]-(mean.a1[it]+mean.a2[it])
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="|AA-BB|"){
-      distribution<-numeric(quantity)
+    else if(statistic=="|AA-BB|"){
       for(it in 1:quantity){
         distribution[it]<-abs((mean.a1[it]+mean.a2[it])-(mean.b[it]))
       }
-      distribution<-sort(distribution)
     }
+    else{
+      for(it in 1:quantity){
+        A1<-scores.a1[[it]]
+        B1<-scores.b1[[it]]
+        A2<-scores.a2[[it]]
+        A<-scores.a[[it]]
+        B<-scores.b1[[it]]
+        distribution[it]<-eval(parse(text=statistic))
+      }
+    }
+    
+    distribution<-sort(distribution)
     if(save=="yes"|save=="check"){
       write.table(distribution,file=file,col.names=FALSE,row.names=FALSE,append=FALSE)
-      return(distribution)
     }
-    if(save=="no"){
-      return(distribution)
-    }
+    return(distribution)
   }
   
   if(design=="ABAB"){
@@ -633,76 +658,70 @@ function(
     for(it in 1:quantity){
       mean.b2[it]<-mean(scores.b2[[it]])
     }
+    distribution<-numeric(quantity)
+    
     if(statistic=="A-B"){
-      distribution<-numeric(quantity)
       for(it in 1:quantity){
         distribution[it]<-mean.a[it]-mean.b[it]
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="B-A"){
-      distribution<-numeric(quantity)
+    else if(statistic=="B-A"){
       for(it in 1:quantity){
         distribution[it]<-mean.b[it]-mean.a[it]
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="|A-B|"){
-      distribution<-numeric(quantity)
+    else if(statistic=="|A-B|"){
       for(it in 1:quantity){
         distribution[it]<-abs(mean.a[it]-mean.b[it])
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="PA-PB"){
-      distribution<-numeric(quantity)
+    else if(statistic=="PA-PB"){
       for(it in 1:quantity){
         distribution[it]<-pmean.a[it]-pmean.b[it]
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="PB-PA"){
-      distribution<-numeric(quantity)
+    else if(statistic=="PB-PA"){
       for(it in 1:quantity){
         distribution[it]<-pmean.b[it]-pmean.a[it]
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="|PA-PB|"){
-      distribution<-numeric(quantity)
+    else if(statistic=="|PA-PB|"){
       for(it in 1:quantity){
         distribution[it]<-abs(pmean.a[it]-pmean.b[it])
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="AA-BB"){
-      distribution<-numeric(quantity)
+    else if(statistic=="AA-BB"){
       for(it in 1:quantity){
         distribution[it]<-(mean.a1[it]+mean.a2[it])-(mean.b1[it]+mean.b2[it])
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="BB-AA"){
-      distribution<-numeric(quantity)
+    else if(statistic=="BB-AA"){
       for(it in 1:quantity){
         distribution[it]<-(mean.b1[it]+mean.b2[it])-(mean.a1[it]+mean.a2[it])
       }
-      distribution<-sort(distribution)
     }
-    if(statistic=="|AA-BB|"){
-      distribution<-numeric(quantity)
+    else if(statistic=="|AA-BB|"){
       for(it in 1:quantity){
         distribution[it]<-abs((mean.a1[it]+mean.a2[it])-(mean.b1[it]+mean.b2[it]))
       }
-      distribution<-sort(distribution)
     }
+    else{
+      for(it in 1:quantity){
+        A1<-scores.a1[[it]]
+        B1<-scores.b1[[it]]
+        A2<-scores.a2[[it]]
+        B2<-scores.b2[[it]]
+        A<-scores.a[[it]]
+        B<-scores.b[[it]]
+        distribution[it]<-eval(parse(text=statistic))
+      }
+    }
+    
+    distribution<-sort(distribution)
     if(save=="yes"|save=="check"){
       write.table(distribution,file=file,col.names=FALSE,row.names=FALSE,append=FALSE)
-      return(distribution)
     }
-    if(save=="no"){
-      return(distribution)
-    }
+    return(distribution)
   }
   
   if(design=="MBD"){
@@ -836,8 +855,9 @@ function(
       }
       scores.b[[iter]]<-bscores
     }
+    differs<-list()
+    
     if(statistic=="A-B"){
-      differs<-list()
       for(iter in 1:nrow(assignments)){
         differ<-numeric(N)
         for(it in 1:N){
@@ -846,8 +866,7 @@ function(
         differs[[iter]]<-differ
       }
     }
-    if(statistic=="B-A"){
-      differs<-list()
+    else if(statistic=="B-A"){
       for(iter in 1:nrow(assignments)){
         differ<-numeric(N)
         for(it in 1:N){
@@ -856,8 +875,7 @@ function(
         differs[[iter]]<-differ
       }
     }
-    if(statistic=="|A-B|"){
-      differs<-list()
+    else if(statistic=="|A-B|"){
       for(iter in 1:nrow(assignments)){
         differ<-numeric(N)
         for(it in 1:N){
@@ -866,6 +884,18 @@ function(
         differs[[iter]]<-differ
       }
     }
+    else{
+      for(iter in 1:nrow(assignments)){
+        differ<-numeric(N)
+        for(it in 1:N){
+          A<-scores.a[[iter]][[it]]
+          B<-scores.b[[iter]][[it]]
+          differ[it]<-eval(parse(text=statistic))
+        }
+        differs[[iter]]<-differ
+      }
+    }
+    
     distribution<-numeric(nrow(assignments))
     for(it in 1:nrow(assignments)){
       distribution[it]<-mean(differs[[it]])
@@ -876,23 +906,14 @@ function(
     }
     if(save=="yes"|save=="check"){
       write.table(distribution,file=fileSAVE,col.names=FALSE,row.names=FALSE,append=FALSE)
-      return(distribution)
-      unlink(fileSTARTPTS,recursive=FALSE)
-      unlink(fileCOMBSTARTPOINTS,recursive=FALSE)
-      unlink(fileASSIGNMENTS,recursive=FALSE)
     }
-    if(save=="no"){
-      return(distribution)
-      unlink(fileSTARTPTS,recursive=FALSE)
-      unlink(fileCOMBSTARTPOINTS,recursive=FALSE)
-      unlink(fileASSIGNMENTS,recursive=FALSE)
-    }
+    unlink(fileSTARTPTS,recursive=FALSE)
+    unlink(fileCOMBSTARTPOINTS,recursive=FALSE)
+    unlink(fileASSIGNMENTS,recursive=FALSE)
+    return(distribution)
   }
   
   if(design=="Custom"){
-    if(!(statistic=="A-B"||statistic=="B-A"||statistic=="|A-B|"))
-      stop("Chosen test statistic not allowed for this design.")
-    
     if(save=="yes"){
       file<-file.choose(new=FALSE)
     }
@@ -914,13 +935,20 @@ function(
       for(it in 1:quantity)
         distribution[it]<-mean(scores.a[[it]])-mean(scores.b[[it]])
     }
-    if(statistic=="B-A"){
+    else if(statistic=="B-A"){
       for(it in 1:quantity)
         distribution[it]<-mean(scores.b[[it]])-mean(scores.a[[it]])
     }
-    if(statistic=="|A-B|"){
+    else if(statistic=="|A-B|"){
       for(it in 1:quantity)
         distribution[it]<-abs(mean(scores.a[[it]])-mean(scores.b[[it]]))
+    }
+    else{
+      for(it in 1:quantity){
+        A<-scores.a[[it]]
+        B<-scores.b[[it]]
+        distribution[it]<-eval(parse(text=statistic))
+      }
     }
     
     distribution<-sort(distribution)

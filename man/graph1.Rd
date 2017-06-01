@@ -38,7 +38,7 @@ Bulte, I., & Onghena, P. (2009). Randomization tests for multiple baseline desig
 
 Bulte, I., & Onghena, P. (in press). When the Truth Hits You Between the Eyes: A Software Tool for the Visual Analysis of Single-Case Experimental Data. Manuscript accepted for publication in Methodology. 
 
-\url{http://ppw.kuleuven.be/english/research/mesrg}
+\url{http://ppw.kuleuven.be/home/english/research/mesrg}
 
 }
 

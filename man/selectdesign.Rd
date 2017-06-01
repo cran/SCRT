@@ -40,7 +40,7 @@ Bulte, I., & Onghena, P. (2008). An R package for single-case randomization test
 
 Bulte, I., & Onghena, P. (2009). Randomization tests for multiple baseline designs: An extension of the SCRT-R package. Behavior Research Methods, 41, 477-485.
 
-\url{http://ppw.kuleuven.be/english/research/mesrg}
+\url{http://ppw.kuleuven.be/home/english/research/mesrg}
 
 }
 

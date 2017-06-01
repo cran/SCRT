@@ -15,7 +15,8 @@ starts = file.choose(new = FALSE), assignments = file.choose(new = FALSE))}
   \item{design}{Type of single-case design: \code{"AB"}, \code{"ABA"}, \code{"ABAB"}, \code{"CRD"} (completely randomized design), \code{"RBD"} (randomized block design), \code{"ATD"} (alternating treatments design), \code{"MBD"} (multiple-baseline AB design) or \code{"Custom"} (user specified design).}
 
   \item{statistic}{Test statistic. For alternation designs, multiple-baseline designs and AB phase designs, there are 3 built-in possibilities: \code{"A-B"}, \code{"B-A"}, and \code{"|A-B|"}, which stand for the (absolute value of the) difference between condition means. 
-For phase designs with more than 2 phases, 6 more options are available: \code{"PA-PB"}, \code{"PB-PA"}, and \code{"|PA-PB|"} refer to the (absolute value of the) difference between the means of phase means, and \code{"AA-BB"}, \code{"BB-AA"} and \code{"|AA-BB|"} represent the (absolute value of the) difference between the sums of phase means.}
+For phase designs with more than 2 phases, 6 more built-in options are available: \code{"PA-PB"}, \code{"PB-PA"}, and \code{"|PA-PB|"} refer to the (absolute value of the) difference between the means of phase means, and \code{"AA-BB"}, \code{"BB-AA"} and \code{"|AA-BB|"} represent the (absolute value of the) difference between the sums of phase means.
+Additionally, it is possible to specify a custom test statistic using the variable identifiers \code{"A"} and \code{"B"} (or in the case of phase deisgns with more than 2 phases, \code{"A1"}, \code{"B1"}, \code{"A2"}, \code{"B2"}, \code{"A"} and \code{"B"}) and any of the basic R functions. For example, \code{"abs(mean(A) - mean(B))"} can be used as a test statistic and it will be the same as using \code{"|A-B|"}.}
 
   \item{save}{Save the randomization distribution to a file (\code{save="yes"}) or just see it as output in the R console (default: \code{save="no"}).}
 
@@ -49,7 +50,7 @@ Bulte, I., & Onghena, P. (2008). An R package for single-case randomization test
 
 Bulte, I., & Onghena, P. (2009). Randomization tests for multiple baseline designs: An extension of the SCRT-R package. Behavior Research Methods, 41, 477-485.
 
-\url{http://ppw.kuleuven.be/english/research/mesrg}
+\url{http://ppw.kuleuven.be/home/english/research/mesrg}
 
 }
 
