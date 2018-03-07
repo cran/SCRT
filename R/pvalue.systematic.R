@@ -826,16 +826,12 @@ function(
     N<-ncol(data)/2
     MT<-nrow(data)
     readLines(con=starts,n=N)->startpoints
-    limits<-list()
-    for(it in 1:N){
-      limits[[it]]<-startpoints[it]
-    }
-    for(it in 1:N){
-      limits[[it]]<-strsplit(limits[[it]],"\t")
-    }
+    limits<-strsplit(startpoints,"\\s")
+    limits<-lapply(limits,function(x){x[x!=""]})
+    
     number<-numeric(N)
     for(it in 1:N){
-      number[it]<-length(limits[[it]][[1]])
+      number[it]<-length(limits[[it]])
     }
     coord<-list()
     for(itr in 1:length(number)){
@@ -909,34 +905,15 @@ function(
       for(itcol in 1:ncol(combstartpts)){
         for(it in 1:N){
           for(itr in 1:number[it]){
-            if(combstartpts[itrow,itcol]==coord[[it]][itr]){combstartpts[itrow,itcol]<-limits[[it]][[1]][itr]}
+            if(combstartpts[itrow,itcol]==coord[[it]][itr]){combstartpts[itrow,itcol]<-limits[[it]][itr]}
           }
         }
       }
     }
     fileASSIGNMENTS<-tempfile(pattern="assignments",tmpdir=tempdir())
-    assignment<-combstartpts[1,]
-    write.table(assignment,file=fileASSIGNMENTS,append=TRUE,col.names=FALSE,row.names=FALSE)
+    write.table(combstartpts,file=fileASSIGNMENTS,col.names=FALSE,row.names=FALSE)
     assignments<-read.table(fileASSIGNMENTS)
-    for(iter in 2:nrow(combstartpts)){
-      assignment<-numeric(N)
-      for(it in 1:N){
-        assignment[it]<-combstartpts[iter,it]
-      }
-      copy<-numeric()
-      for(itr in 1:nrow(assignments)){
-        copy2<-numeric(N)
-        for(it in 1:N){
-          copy2[it]<-assignment[it]==assignments[itr,it]
-        }
-        copy<-c(copy,prod(copy2))
-      }
-      if(sum(copy)==0){
-        assignment1<-rbind(assignment)
-        write.table(assignment1,file=fileASSIGNMENTS,append=TRUE,col.names=FALSE,row.names=FALSE)
-        assignments<-read.table(fileASSIGNMENTS)
-      }
-    }
+    
     observed.a<-list()
     for(it in 1:N){
       observed.a[[it]]<-data[,it*2][data[,(it*2)-1]=="A"]

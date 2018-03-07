@@ -19,7 +19,7 @@ Additionally, it is possible to specify a custom test statistic using the variab
 
   \item{save}{Save the randomization distribution to a file (\code{save="yes"}) or just see it as output in the R console (default: \code{save="no"}).}
 
-  \item{number}{Number of randomizations required.}
+  \item{number}{Number of randomizations required. Please note that the observed test statistic is always included in the randomization distribution.}
 
   \item{limit}{For phase designs: minimum number of observations per phase. 
 For alternating treatments designs: maximum number of consecutive administrations of the same condition.}
@@ -50,6 +50,10 @@ When choosing to save the randomization distribution to a file, next a window wi
 Bulte, I., & Onghena, P. (2008). An R package for single-case randomization tests. Behavior Research Methods, 40, 467-478.
 
 Bulte, I., & Onghena, P. (2009). Randomization tests for multiple baseline designs: An extension of the SCRT-R package. Behavior Research Methods, 41, 477-485.
+
+Hope, A.C.A. (1968). A simplified Monte Carlo significance test procedure. Journal of the Royal Statistical Society, Series B 30, 582-598.
+
+Onghena, P. & May, R.B. (1995). Pitfalls in computing and interpreting randomization test p values: A commentary on Chen and Dunlap. Behavior Research Methods, Instruments, & Computers, 27, 408-411. 
 
 \url{http://ppw.kuleuven.be/home/english/research/mesrg}
 

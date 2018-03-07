@@ -34,7 +34,9 @@ For multiple baseline designs, when using the default \code{starts} argument, fi
 
 For user specified designs, when using the default \code{assignments} argument, first a window pops up in which is asked in what file all the possible assignments can be found. In this file, each row should contain the sequence of conditions in one possible assignment, separated by a tab. There should be one row for every possible assignment. The rows and columns should not be labeled.
 
-For multiple baseline designs, the possible combinations of start points for each unit are returned. For all other designs, the possible sequences of conditions are returned (e.g., "A" "A" "A" "A" "B" "B" "B"). 
+For multiple baseline designs, the possible combinations of start points for each unit are returned. There may be duplicates among these assignments if there are overlaps between the start points for different subjects, this is a result of the subjects also being randomized to the set of start points.
+
+For all other designs, the possible sequences of conditions are returned (e.g., "A" "A" "A" "A" "B" "B" "B"). 
 
 }
 

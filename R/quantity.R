@@ -111,19 +111,15 @@ function(design,MT,limit,starts=file.choose(new=FALSE),assignments=file.choose(n
   }
   
   if(design=="MBD"){
-    points<-read.table(starts)
-    N<-nrow(points)
-    readLines(con=starts,n=N)->startpoints
-    limits<-list()
-    for(it in 1:N){
-      limits[[it]]<-startpoints[it]
-    }
-    for(it in 1:N){
-      limits[[it]]<-strsplit(limits[[it]],"\t")
-    }
+    readLines(con=starts)->startpoints
+    limits<-strsplit(startpoints,"\\s")
+    limits<-lapply(limits,function(x){x[x!=""]})
+    limits<-limits[lapply(limits,length)>0]
+    N<-length(limits)
+    
     number<-numeric(N)
     for(it in 1:N){
-      number[it]<-length(limits[[it]][[1]])
+      number[it]<-length(limits[[it]])
     }
     quantity<-factorial(N)*prod(number)
   }
