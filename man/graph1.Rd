@@ -23,10 +23,11 @@ xlab="Measurement Times",ylab="Scores")}
 
 \details{
 
-When using the default \code{data} argument, a window will pop up to ask in what file the data can be found. This text file containing the data should consist of two columns for single-case phase and alternation designs: the first with the condition labels and the second with the obtained scores.
-For multiple-baseline designs it should consist of these two columns for EACH unit. This way, each row represents one measurement occasion. It is important not to label the rows or columns.
+When using the default \code{data} argument, a window will pop up to ask in what file the data can be found. This text file containing the data should consist of two columns for single-case phase and alternation designs: the first with the condition labels and the second with the obtained scores. For multiple-baseline designs it should consist of these two columns for EACH unit. This way, each row represents one measurement occasion. It is important not to label the rows or columns.
 
 For alternation designs, after the plot is drawn, the location of the legend should be indicated by a left mouse click.
+
+Missing data should be indicated as \code{NA}. For calculations, missing data are omitted.
 
 }
 

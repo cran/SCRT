@@ -1,17 +1,48 @@
 observed <-
 function(design,statistic,data=read.table(file.choose(new=FALSE))){
 
+  statAB<-function(A,B)
+  {
+    return(mean(A,na.rm=TRUE)-mean(B,na.rm=TRUE))
+  }
+  
+  statBA<-function(A,B)
+  {
+    return(mean(B,na.rm=TRUE)-mean(A,na.rm=TRUE))
+  }
+  
+  statabsAB<-function(A,B)
+  {
+    return(abs(mean(A,na.rm=TRUE)-mean(B,na.rm=TRUE)))
+  }
+  
+  statPAPB<-function(A1,B1,A2,B2)
+  {
+    return(mean(c(mean(A1,na.rm=TRUE),mean(A2,na.rm=TRUE)),na.rm=TRUE)-mean(c(mean(B1,na.rm=TRUE),mean(B2,na.rm=TRUE)),na.rm=TRUE))
+  }
+  
+  statPBPA<-function(A1,B1,A2,B2)
+  {
+    return(mean(c(mean(B1,na.rm=TRUE),mean(B2,na.rm=TRUE)),na.rm=TRUE)-mean(c(mean(A1,na.rm=TRUE),mean(A2,na.rm=TRUE)),na.rm=TRUE))
+  }
+  
+  statabsPAPB<-function(A1,B1,A2,B2)
+  {
+    return(abs(mean(c(mean(A1,na.rm=TRUE),mean(A2,na.rm=TRUE)),na.rm=TRUE)-mean(c(mean(B1,na.rm=TRUE),mean(B2,na.rm=TRUE)),na.rm=TRUE)))
+  }
+  
   if(design=="CRD"|design=="RBD"|design=="ATD"|design=="AB"|design=="Custom"){
     observed.a<-data[,2][data[,1]=="A"]
     observed.b<-data[,2][data[,1]=="B"]
+    
     if(statistic=="A-B"){
-      observed.statistic<-mean(observed.a)-mean(observed.b)
+      observed.statistic<-statAB(observed.a,observed.b)
     }
     else if(statistic=="B-A"){
-      observed.statistic<-mean(observed.b)-mean(observed.a)
+      observed.statistic<-statBA(observed.a,observed.b)
     }
     else if(statistic=="|A-B|"){
-      observed.statistic<-abs(mean(observed.a)-mean(observed.b))
+      observed.statistic<-statabsAB(observed.a,observed.b)
     }
     else{
       A<-observed.a
@@ -25,32 +56,24 @@ function(design,statistic,data=read.table(file.choose(new=FALSE))){
     observed.b1<-data[,2][data[,1]=="B1"]	
     observed.a2<-data[,2][data[,1]=="A2"]	
     observed.a<-c(observed.a1,observed.a2)	
+    
     if(statistic=="A-B"){
-      observed.statistic<-mean(observed.a)-mean(observed.b1)
+      observed.statistic<-statAB(observed.a,observed.b1)
     }
     else if(statistic=="B-A"){
-      observed.statistic<-mean(observed.b1)-mean(observed.a)
+      observed.statistic<-statBA(observed.a,observed.b1)
     }
     else if(statistic=="|A-B|"){
-      observed.statistic<-abs(mean(observed.a)-mean(observed.b1))
+      observed.statistic<-statabsAB(observed.a,observed.b1)
     }
     else if(statistic=="PA-PB"){
-      observed.statistic<-((mean(observed.a1)+mean(observed.a2))/2)-(mean(observed.b1))
+      observed.statistic<-statPAPB(observed.a1,observed.b1,observed.a2,NA)
     }
     else if(statistic=="PB-PA"){
-      observed.statistic<-mean(observed.b1)-((mean(observed.a1)+mean(observed.a2))/2)
+      observed.statistic<-statPBPA(observed.a1,observed.b1,observed.a2,NA)
     }
     else if(statistic=="|PA-PB|"){
-      observed.statistic<-abs(((mean(observed.a1)+mean(observed.a2))/2)-mean(observed.b1))
-    }
-    else if(statistic=="AA-BB"){
-      observed.statistic<-(mean(observed.a1)+mean(observed.a2))-(mean(observed.b1))
-    }
-    else if(statistic=="BB-AA"){
-      observed.statistic<-(mean(observed.b1))-(mean(observed.a1)+mean(observed.a2))
-    }
-    else if(statistic=="|AA-BB|"){
-      observed.statistic<-abs((mean(observed.a1)+mean(observed.a2))-(mean(observed.b1)))
+      observed.statistic<-statabsPAPB(observed.a1,observed.b1,observed.a2,NA)
     }
     else{
       A1<-observed.a1
@@ -69,32 +92,24 @@ function(design,statistic,data=read.table(file.choose(new=FALSE))){
     observed.b2<-data[,2][data[,1]=="B2"]	
     observed.a<-c(observed.a1,observed.a2)	
     observed.b<-c(observed.b1,observed.b2)	
+    
     if(statistic=="A-B"){
-      observed.statistic<-mean(observed.a)-mean(observed.b)
+      observed.statistic<-statAB(observed.a,observed.b)
     }
     else if(statistic=="B-A"){
-      observed.statistic<-mean(observed.b)-mean(observed.a)
+      observed.statistic<-statBA(observed.a,observed.b)
     }
     else if(statistic=="|A-B|"){
-      observed.statistic<-abs(mean(observed.a)-mean(observed.b))
+      observed.statistic<-statabsAB(observed.a,observed.b)
     }
     else if(statistic=="PA-PB"){
-      observed.statistic<-((mean(observed.a1)+mean(observed.a2))/2)-((mean(observed.b1)+mean(observed.b2))/2)	
+      observed.statistic<-statPAPB(observed.a1,observed.b1,observed.a2,observed.b2)	
     }
     else if(statistic=="PB-PA"){
-      observed.statistic<-((mean(observed.b1)+mean(observed.b2))/2)-((mean(observed.a1)+mean(observed.a2))/2)
+      observed.statistic<-statPBPA(observed.a1,observed.b1,observed.a2,observed.b2)
     }
     else if(statistic=="|PA-PB|"){
-      observed.statistic<-abs(((mean(observed.a1)+mean(observed.a2))/2)-((mean(observed.b1)+mean(observed.b2))/2))
-    }
-    else if(statistic=="AA-BB"){
-      observed.statistic<-(mean(observed.a1)+mean(observed.a2))-(mean(observed.b1)+mean(observed.b2))
-    }
-    else if(statistic=="BB-AA"){
-      observed.statistic<-(mean(observed.b1)+mean(observed.b2))-(mean(observed.a1)+mean(observed.a2))
-    }
-    else if(statistic=="|AA-BB|"){
-      observed.statistic<-abs((mean(observed.a1)+mean(observed.a2))-(mean(observed.b1)+mean(observed.b2)))
+      observed.statistic<-statabsPAPB(observed.a1,observed.b1,observed.a2,observed.b2)
     }
     else{
       A1<-observed.a1
@@ -117,19 +132,20 @@ function(design,statistic,data=read.table(file.choose(new=FALSE))){
       observed.b[[it]]<-data[,it*2][data[,(it*2)-1]=="B"]
     }
     differences<-numeric(ncol(data)/2)
+    
     if(statistic=="A-B"){
       for(it in 1:(ncol(data)/2)){
-        differences[it]<-mean(observed.a[[it]])-mean(observed.b[[it]])
+        differences[it]<-statAB(observed.a[[it]],observed.b[[it]])
       }
     }
     else if(statistic=="B-A"){
       for(it in 1:(ncol(data)/2)){
-        differences[it]<-mean(observed.b[[it]])-mean(observed.a[[it]])
+        differences[it]<-statBA(observed.a[[it]],observed.b[[it]])
       }
     }
     else if(statistic=="|A-B|"){
       for(it in 1:(ncol(data)/2)){
-        differences[it]<-abs(mean(observed.a[[it]])-mean(observed.b[[it]]))
+        differences[it]<-statabsAB(observed.a[[it]],observed.b[[it]])
       }
     }
     else{
@@ -139,7 +155,7 @@ function(design,statistic,data=read.table(file.choose(new=FALSE))){
         differences[it]<-eval(parse(text=statistic))
       }
     }
-    observed.statistic<-mean(differences)
+    observed.statistic<-mean(differences,na.rm=TRUE)
   }
   
   return(observed.statistic)
