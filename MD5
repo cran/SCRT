@@ -1,4 +1,4 @@
-eba1134df8a79fa263c5fde21e5ba0fe *DESCRIPTION
+7e3718c38834cf55f084c7814f7b7c82 *DESCRIPTION
 aee9e9aae5c2d70f491fc1fe175f4de6 *NAMESPACE
 23195dd3acdbd7e4c29d0bb94fb4256f *R/assignments.R
 9fbcd69a70c86c09a5eb86eb3805a6a0 *R/distribution.random.R
@@ -11,7 +11,7 @@ aee9e9aae5c2d70f491fc1fe175f4de6 *NAMESPACE
 173b190802c1d388101311d5a9c890e5 *R/selectdesign.R
 46e9c1049206e6d52f205df88a70772f *data/ABAB.rda
 4277cd999952c97ff2ea11ab782e2207 *man/ABAB.Rd
-85d79495dac1c659ef25f0b25d0a7285 *man/SCRT-package.Rd
+42edd582b1a869c96c2cddca61223cad *man/SCRT-package.Rd
 3c20c4825c223a732861d7af219731e4 *man/assignments.Rd
 e7328e681d2df3e96acdd24493a460ff *man/distribution.random.Rd
 a2aa30f8c0f6dd843039796410ba1c9d *man/distribution.systematic.Rd

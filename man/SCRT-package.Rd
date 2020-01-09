@@ -11,14 +11,14 @@ Design single-case phase, alternation and multiple-baseline experiments, and con
 \tabular{ll}{
 Package: \tab SCRT\cr
 Type: \tab Package\cr
-Version: \tab 1.3.0\cr
-Date: \tab 2019-07-01\cr
+Version: \tab 1.3.1\cr
+Date: \tab 2019-12-20\cr
 License: \tab GPL version 2 or newer\cr
 }
 }
 
 \author{
-Isis Bulte and Patrick Onghena
+Isis Bulte, Tamal Kumar De, Patrick Onghena
 
 Maintainer: Tamal Kumar De <tamalkumar.de@kuleuven.be>
 }
